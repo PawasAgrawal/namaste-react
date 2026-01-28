@@ -1,11 +1,136 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-const heading = React.createElement(
-  "h1",
-  {},
-  "Namaste React 🚀"
-);
+const resList = [
+  {
+    id: "2001",
+    name: "Spice Route Kitchen",
+    recipe: "Paneer Butter Masala",
+    rating: "4.3",
+    price: "₹350 for two",
+    deliveryTime: "28 MINS",
+    image:
+      "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_1024/dc9t0kiq7lhsd3pndohf",
+  },
+  {
+    id: "2002",
+    name: "Urban Tadka",
+    recipe: "Chicken Biryani",
+    rating: "4.6",
+    price: "₹480 for two",
+    deliveryTime: "35 MINS",
+    image:
+      "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_1024/mkcibe6x1ychvzjkywxk",
+  },
+  {
+    id: "2003",
+    name: "The Dosa Hub",
+    recipe: "Masala Dosa",
+    rating: "4.2",
+    price: "₹200 for two",
+    deliveryTime: "20 MINS",
+    image:
+      "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_1024/mkcibe6x1ychvzjkywxk",
+  },
+  {
+    id: "2004",
+    name: "Burger Factory",
+    recipe: "Cheese Burst Burger",
+    rating: "4.1",
+    price: "₹250 for two",
+    deliveryTime: "26 MINS",
+    image:
+      "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_1024/mkcibe6x1ychvzjkywxk",
+  },
+  {
+    id: "2005",
+    name: "Chai Junction",
+    recipe: "Elaichi Chai",
+    rating: "4.5",
+    price: "₹120 for two",
+    deliveryTime: "15 MINS",
+    image:
+      "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_1024/mkcibe6x1ychvzjkywxk",
+  },
+  {
+    id: "2006",
+    name: "Wok & Roll",
+    recipe: "Veg Hakka Noodles",
+    rating: "4.0",
+    price: "₹300 for two",
+    deliveryTime: "30 MINS",
+    image:
+      "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_1024/mkcibe6x1ychvzjkywxk",
+  },
+  {
+    id: "2007",
+    name: "Sweet Cravings",
+    recipe: "Chocolate Lava Cake",
+    rating: "4.7",
+    price: "₹180 for two",
+    deliveryTime: "19 MINS",
+    image:
+      "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_1024/mkcibe6x1ychvzjkywxk",
+  },
+];
+
+const Heading = () => {
+  return (
+    <div className="header">
+      <div className="logo-container">
+        <img
+          className="logo"
+          src="data:image/png;base64,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"
+        />
+      </div>
+      <div className="nav-items">
+        <ul>
+          <li>Home</li>
+          <li>About</li>
+          <li>Contact Us</li>
+          <li>Cart</li>
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+const RestaurantCard = (props) => {
+  const { resData } = props;
+  const { name, recipe, rating, price, deliveryTime, image } = resData;
+  return (
+    <div className="res-card">
+      <img className="res-logo" alt="res-logo" src={image} />
+      <h3>{name}</h3>
+      <h4>{recipe}</h4>
+      <h4>{rating} stars</h4>
+      <h4>{price}</h4>
+      <h4>{deliveryTime}</h4>
+    </div>
+  );
+};
+
+const Body = () => {
+  return (
+    <div className="body">
+      <div className="search">Search</div>
+      <div className="res-container">
+        {resList.map((restaurant) => (
+          <RestaurantCard key={restaurant.id} resData={restaurant} />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const AppLayout = () => {
+  return (
+    <div className="app">
+      <Heading />
+      <Body />
+    </div>
+  );
+};
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(heading);
+root.render(<AppLayout />);
